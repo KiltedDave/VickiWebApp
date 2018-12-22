@@ -1,0 +1,92 @@
+﻿@model VickiWebApp.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Book</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <form asp-action="GetDewey">
+                <div class="form-group focus" id="ISBN">
+                    <label asp-for="ISBN" class="control-label"></label>
+                    <input asp-for="ISBN" class="form-control" autofocus="autofocus" />
+                    <span asp-validation-for="ISBN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </form>
+            @*@using (Html.BeginForm("GetDewey", "Books"))
+                {
+                    @Html.Label("Enter ISBN: ");
+                    @Html.TextBoxFor(x => x.ISBN);
+
+                    <button type="submit">Search</button>
+                }*@
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ISBN" class="control-label"></label>
+                <input asp-for="ISBN" class="form-control" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="CoverType" class="control-label"></label>
+                    <input asp-for="CoverType" class="form-control" />
+                    <span asp-validation-for="CoverType" class="text-danger"></span>*@
+
+                <select asp-for="CoverType"
+                        asp-items="Html.GetEnumSelectList<CoverEnum>()">
+                    >
+                </select>
+                @*<select asp-for="CoverType" asp-items="Model.CoverType"></select>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="DeweyDecimal" class="control-label"></label>
+                <input asp-for="DeweyDecimal" class="form-control" />
+                <span asp-validation-for="DeweyDecimal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

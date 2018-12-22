@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VickiWebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace VickiWebApp
 {
@@ -31,8 +33,13 @@ namespace VickiWebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // This method gets called by the runtime. Use this method to add services to the container.            
+            services.AddMvc();
+            services.AddHttpClient();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<BookContext>(options => options.UseSqlServer(connection));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +63,7 @@ namespace VickiWebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Books}/{action=Index}/{id?}");
             });
         }
     }
